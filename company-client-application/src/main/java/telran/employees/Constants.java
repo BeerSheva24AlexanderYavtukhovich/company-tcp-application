@@ -1,7 +1,6 @@
 package telran.employees;
 
 public final class Constants {
-    final static String DATA_FILE = "employees.data";
     final static int MIN_BASIC_SALARY = 5000;
     final static int MAX_BASIC_SALARY = 30000;
     final static String[] DEPARTMENTS = { "QA", "Audit", "Development", "Management" };

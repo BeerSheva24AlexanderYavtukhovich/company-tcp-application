@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import telran.io.Persistable;
 import telran.view.InputOutput;
 import telran.view.Item;
 import telran.view.Menu;
@@ -27,7 +26,8 @@ public class CompanyItems {
             Item.of("Fire Employee", CompanyItems::fireEmployee),
             Item.of("Department Salary Budget", CompanyItems::subMenuDepBudget),
             Item.of("List of Departments", CompanyItems::displayListOfDepartments),
-            Item.of("Display Managers with Most Factor", CompanyItems::displayManagersWithMostFactor)
+            Item.of("Display Managers with Most Factor", CompanyItems::displayManagersWithMostFactor),
+            Item.of("Save", CompanyItems::save)
 
     };
 
@@ -80,18 +80,9 @@ public class CompanyItems {
         Arrays.stream(company.getManagersWithMostFactor()).forEach(io::writeLine);
     }
 
-    private static void save(InputOutput io, boolean save, boolean exit) {
-        if (save) {
-            if (company instanceof Persistable persistable) {
-                persistable.saveToFile(Constants.DATA_FILE);
-                io.writeLine("Data saved to " + Constants.DATA_FILE);
-            } else {
-                io.writeLine("This company does not support saving.");
-            }
-        }
-        if (exit) {
-            io.writeLine("Bye!");
-            System.exit(0);
+    private static void save(InputOutput io) {
+        if (company instanceof CompanyTcpProxy companyTcpProxy) {
+            io.writeLine(companyTcpProxy.save());
         }
     }
 

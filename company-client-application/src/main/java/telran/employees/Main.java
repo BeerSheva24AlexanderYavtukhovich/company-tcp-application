@@ -1,8 +1,8 @@
 package telran.employees;
 
 import java.io.IOException;
-
 import java.util.Arrays;
+
 import telran.net.TcpClient;
 import telran.view.InputOutput;
 import telran.view.Item;
@@ -22,7 +22,6 @@ public class Main {
         Menu menu = new Menu("Company Network Application", items);
         menu.perform(io);
         io.writeLine("Application is finished");
-
     }
 
     private static Item[] addExitItem(Item[] items, TcpClient tcpClient) {
