@@ -1,8 +1,8 @@
 package telran.employees;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -14,30 +14,29 @@ import telran.net.Request;
 import telran.net.Response;
 import telran.net.ResponseCode;
 
+@SuppressWarnings("unused")
 public class CompanyProtocol implements Protocol {
     private final Company company;
-    private final Map<String, Function<String, Response>> actions;
 
     public CompanyProtocol(Company company) {
         this.company = company;
-        this.actions = Map.of(
-                "addEmployee", this::addEmployee,
-                "getEmployee", this::getEmployee,
-                "getDepartmentBudget", this::getDepartmentBudget,
-                "getDepartments", this::getDepartments,
-                "getManagersWithMostFactor", this::getManagersWithMostFactor,
-                "removeEmployee", this::removeEmployee,
-                "save", this::save);
     }
 
     @Override
     public Response getResponse(Request request) {
         String type = request.requestType();
         String data = request.requestData();
-        Function<String, Response> action = actions.get(type);
-        return action != null
-                ? handleResponse(() -> action.apply(data))
-                : new Response(ResponseCode.WRONG_TYPE, type + " is wrong type");
+        Response response;
+        try {
+            Method method = CompanyProtocol.class.getDeclaredMethod(type, String.class);
+            method.setAccessible(true);
+            response = (Response) method.invoke(this, data);
+        } catch (NoSuchMethodException e) {
+            response = new Response(ResponseCode.WRONG_TYPE, type + " is wrong type");
+        } catch (IllegalAccessException | SecurityException | InvocationTargetException e) {
+            response = new Response(ResponseCode.WRONG_DATA, "Unexpected error: " + e.getMessage());
+        }
+        return response;
     }
 
     private Response handleResponse(Supplier<Response> responseSupplier) {
