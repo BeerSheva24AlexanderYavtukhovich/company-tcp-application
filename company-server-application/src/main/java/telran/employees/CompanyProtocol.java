@@ -1,5 +1,6 @@
 package telran.employees;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -31,8 +32,12 @@ public class CompanyProtocol implements Protocol {
             response = (Response) method.invoke(this, data);
         } catch (NoSuchMethodException e) {
             response = new Response(ResponseCode.WRONG_TYPE, type + " is wrong type");
-        } catch (Exception e) {
+        } catch (InvocationTargetException e) {
+            Throwable causeExc = e.getCause();
+            String message = causeExc == null ? e.getMessage() : causeExc.getMessage();
             response = new Response(ResponseCode.WRONG_DATA, "Error: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return response;
     }

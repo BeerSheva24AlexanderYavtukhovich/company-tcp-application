@@ -1,8 +1,10 @@
 package telran.employees;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.util.Arrays;
 
+import telran.net.NetworkClient;
 import telran.net.TcpClient;
 import telran.view.InputOutput;
 import telran.view.Item;
@@ -15,20 +17,22 @@ public class Main {
 
     public static void main(String[] args) {
         InputOutput io = new StandardInputOutput();
-        TcpClient tcpClient = new TcpClient(HOST, PORT);
-        Company company = new CompanyTcpProxy(tcpClient);
+        NetworkClient netClient = new TcpClient(HOST, PORT);
+        Company company = new CompanyNetProxy(netClient);
         Item[] items = CompanyItems.getItems(company);
-        items = addExitItem(items, tcpClient);
+        items = addExitItem(items, netClient);
         Menu menu = new Menu("Company Network Application", items);
         menu.perform(io);
         io.writeLine("Application is finished");
     }
 
-    private static Item[] addExitItem(Item[] items, TcpClient tcpClient) {
+    private static Item[] addExitItem(Item[] items, NetworkClient netClient) {
         Item[] res = Arrays.copyOf(items, items.length + 1);
         res[items.length] = Item.of("Exit", io -> {
             try {
-                tcpClient.close();
+                if (netClient instanceof Closeable closeable) {
+                    closeable.close();
+                }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

@@ -5,13 +5,13 @@ import java.util.stream.StreamSupport;
 
 import org.json.JSONArray;
 
-import telran.net.TcpClient;
+import telran.net.NetworkClient;
 
-public class CompanyTcpProxy implements Company {
-    TcpClient tcpClient;
+public class CompanyNetProxy implements Company {
+    NetworkClient netClient;
 
-    public CompanyTcpProxy(TcpClient tcpClient) {
-        this.tcpClient = tcpClient;
+    public CompanyNetProxy(NetworkClient netClient) {
+        this.netClient = netClient;
     }
 
     @Override
@@ -21,17 +21,17 @@ public class CompanyTcpProxy implements Company {
 
     @Override
     public void addEmployee(Employee empl) {
-        tcpClient.sendAndReceive("addEmployee", empl.toString());
+        netClient.sendAndReceive("addEmployee", empl.toString());
     }
 
     @Override
     public int getDepartmentBudget(String department) {
-        return Integer.parseInt(tcpClient.sendAndReceive("getDepartmentBudget", department));
+        return Integer.parseInt(netClient.sendAndReceive("getDepartmentBudget", department));
     }
 
     @Override
     public String[] getDepartments() {
-        String jsonStr = tcpClient.sendAndReceive("getDepartments", "");
+        String jsonStr = netClient.sendAndReceive("getDepartments", "");
         JSONArray jsonArr = new JSONArray(jsonStr);
         String[] res = jsonArr.toList().toArray(String[]::new);
         return res;
@@ -39,14 +39,14 @@ public class CompanyTcpProxy implements Company {
 
     @Override
     public Employee getEmployee(long id) {
-        String emplJSON = tcpClient.sendAndReceive("getEmployee", String.valueOf(id));
+        String emplJSON = netClient.sendAndReceive("getEmployee", String.valueOf(id));
         Employee empl = Employee.getEmployeeFromJSON(emplJSON);
         return empl;
     }
 
     @Override
     public Manager[] getManagersWithMostFactor() {
-        String jsonStr = tcpClient.sendAndReceive("getManagersWithMostFactor", "");
+        String jsonStr = netClient.sendAndReceive("getManagersWithMostFactor", "");
         JSONArray jsonArr = new JSONArray(jsonStr);
         return StreamSupport.stream(jsonArr.spliterator(), false)
                 .map(json -> Employee.getEmployeeFromJSON(json.toString()))
@@ -55,13 +55,13 @@ public class CompanyTcpProxy implements Company {
 
     @Override
     public Employee removeEmployee(long id) {
-        String emplJSON = tcpClient.sendAndReceive("removeEmployee", String.valueOf(id));
+        String emplJSON = netClient.sendAndReceive("removeEmployee", String.valueOf(id));
         Employee empl = Employee.getEmployeeFromJSON(emplJSON);
         return empl;
     }
 
     public String save() {
-        return tcpClient.sendAndReceive("save", "");
+        return netClient.sendAndReceive("save", "");
     }
 
 }

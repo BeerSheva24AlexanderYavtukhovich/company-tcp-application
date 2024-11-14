@@ -81,7 +81,7 @@ public class CompanyItems {
     }
 
     private static void save(InputOutput io) {
-        if (company instanceof CompanyTcpProxy companyTcpProxy) {
+        if (company instanceof CompanyNetProxy companyTcpProxy) {
             io.writeLine(companyTcpProxy.save());
         }
     }
