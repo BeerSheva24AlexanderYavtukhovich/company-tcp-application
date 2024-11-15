@@ -1,6 +1,8 @@
 package telran.employees;
 
-public final class Constants {
+public final class ClientConfig {
+    final static String HOST = "localhost";
+    final static int PORT = 5011;
     final static int MIN_BASIC_SALARY = 5000;
     final static int MAX_BASIC_SALARY = 30000;
     final static String[] DEPARTMENTS = { "QA", "Audit", "Development", "Management" };
@@ -17,6 +19,6 @@ public final class Constants {
     final static double MIN_FACTOR = 1.0;
     final static double MAX_FACTOR = 3.0;
 
-    private Constants() {
+    private ClientConfig() {
     }
 }

@@ -83,7 +83,7 @@ public class CompanyProtocol implements Protocol {
 
     private Response save(String data) {
         if (company instanceof Persistable persistable) {
-            persistable.saveToFile(Constants.DATA_FILE);
+            persistable.saveToFile(ServerConfig.DATA_FILE);
             return new Response(ResponseCode.OK, "Saved successfully");
         } else {
             return new Response(ResponseCode.WRONG_DATA, "This company does not support saving.");

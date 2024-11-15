@@ -12,12 +12,9 @@ import telran.view.Menu;
 import telran.view.StandardInputOutput;
 
 public class Main {
-    private static final String HOST = "localhost";
-    private static final int PORT = 5011;
-
     public static void main(String[] args) {
         InputOutput io = new StandardInputOutput();
-        NetworkClient netClient = new TcpClient(HOST, PORT);
+        NetworkClient netClient = new TcpClient(ClientConfig.HOST, ClientConfig.PORT);
         Company company = new CompanyNetProxy(netClient);
         Item[] items = CompanyItems.getItems(company);
         items = addExitItem(items, netClient);

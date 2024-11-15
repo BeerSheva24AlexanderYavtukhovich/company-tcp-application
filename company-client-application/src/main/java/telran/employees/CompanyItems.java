@@ -27,8 +27,6 @@ public class CompanyItems {
             Item.of("Department Salary Budget", CompanyItems::subMenuDepBudget),
             Item.of("List of Departments", CompanyItems::displayListOfDepartments),
             Item.of("Display Managers with Most Factor", CompanyItems::displayManagersWithMostFactor),
-            Item.of("Save", CompanyItems::save)
-
     };
 
     public static Item[] getItems(Company company) {
@@ -78,12 +76,6 @@ public class CompanyItems {
     private static void displayManagersWithMostFactor(InputOutput io) {
         io.writeLine("\nList of managers with most factor:");
         Arrays.stream(company.getManagersWithMostFactor()).forEach(io::writeLine);
-    }
-
-    private static void save(InputOutput io) {
-        if (company instanceof CompanyNetProxy companyTcpProxy) {
-            io.writeLine(companyTcpProxy.save());
-        }
     }
 
 }

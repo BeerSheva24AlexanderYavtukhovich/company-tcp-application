@@ -7,52 +7,55 @@ import telran.view.InputOutput;
 
 public class InputReader {
     public static long readId(InputOutput io) {
-        return (io.readNumberRange("Enter employee ID (between " + Constants.MIN_ID + " and " + Constants.MAX_ID + "):",
-                "Invalid ID. Must be a number between " + Constants.MIN_ID + " and " + Constants.MAX_ID + ".",
-                Constants.MIN_ID, Constants.MAX_ID)).longValue();
+        return (io.readNumberRange(
+                "Enter employee ID (between " + ClientConfig.MIN_ID + " and " + ClientConfig.MAX_ID + "):",
+                "Invalid ID. Must be a number between " + ClientConfig.MIN_ID + " and " + ClientConfig.MAX_ID + ".",
+                ClientConfig.MIN_ID, ClientConfig.MAX_ID)).longValue();
     }
 
     public static int readSalary(InputOutput io) {
         return (io.readNumberRange(
-                "Enter employee salary (between " + Constants.MIN_BASIC_SALARY + " and " + Constants.MAX_BASIC_SALARY
+                "Enter employee salary (between " + ClientConfig.MIN_BASIC_SALARY + " and "
+                        + ClientConfig.MAX_BASIC_SALARY
                         + "):",
-                "Invalid salary.", Constants.MIN_BASIC_SALARY, Constants.MAX_BASIC_SALARY)).intValue();
+                "Invalid salary.", ClientConfig.MIN_BASIC_SALARY, ClientConfig.MAX_BASIC_SALARY)).intValue();
     }
 
     public static String readDepartment(InputOutput io) {
-        return io.readStringOptions("Enter department (" + String.join(", ", Constants.DEPARTMENTS) + "):",
+        return io.readStringOptions("Enter department (" + String.join(", ", ClientConfig.DEPARTMENTS) + "):",
                 "Invalid department.",
-                new HashSet<>(Arrays.asList(Constants.DEPARTMENTS)));
+                new HashSet<>(Arrays.asList(ClientConfig.DEPARTMENTS)));
     }
 
     public static int readWage(InputOutput io) {
         return (io.readNumberRange(
-                "Enter employee wage (between " + Constants.MIN_WAGE + " and " + Constants.MAX_WAGE + "):",
-                "Invalid wage.", Constants.MIN_WAGE, Constants.MAX_WAGE)).intValue();
+                "Enter employee wage (between " + ClientConfig.MIN_WAGE + " and " + ClientConfig.MAX_WAGE + "):",
+                "Invalid wage.", ClientConfig.MIN_WAGE, ClientConfig.MAX_WAGE)).intValue();
     }
 
     public static int readHours(InputOutput io) {
         return (io.readNumberRange(
-                "Enter employee hours (between " + Constants.MIN_HOURS + " and " + Constants.MAX_HOURS + "):",
-                "Invalid hours.", Constants.MIN_HOURS, Constants.MAX_HOURS)).intValue();
+                "Enter employee hours (between " + ClientConfig.MIN_HOURS + " and " + ClientConfig.MAX_HOURS + "):",
+                "Invalid hours.", ClientConfig.MIN_HOURS, ClientConfig.MAX_HOURS)).intValue();
     }
 
     public static float readPercent(InputOutput io) {
         return (io.readNumberRange(
-                "Enter employee percent (between " + Constants.MIN_PERCENT + " and " + Constants.MAX_PERCENT + "):",
-                "Invalid percent.", Constants.MIN_PERCENT, Constants.MAX_PERCENT)).floatValue();
+                "Enter employee percent (between " + ClientConfig.MIN_PERCENT + " and " + ClientConfig.MAX_PERCENT
+                        + "):",
+                "Invalid percent.", ClientConfig.MIN_PERCENT, ClientConfig.MAX_PERCENT)).floatValue();
     }
 
     public static int readSales(InputOutput io) {
         return (io.readNumberRange(
-                "Enter employee sales (between " + Constants.MIN_SALES + " and " + Constants.MAX_SALES + "):",
-                "Invalid sales.", Constants.MIN_SALES, Constants.MAX_SALES)).intValue();
+                "Enter employee sales (between " + ClientConfig.MIN_SALES + " and " + ClientConfig.MAX_SALES + "):",
+                "Invalid sales.", ClientConfig.MIN_SALES, ClientConfig.MAX_SALES)).intValue();
     }
 
     public static float readFactor(InputOutput io) {
         return (io.readNumberRange(
-                "Enter employee factor (between " + Constants.MIN_FACTOR + " and " + Constants.MAX_FACTOR + "):",
-                "Invalid factor.", Constants.MIN_FACTOR, Constants.MAX_FACTOR)).floatValue();
+                "Enter employee factor (between " + ClientConfig.MIN_FACTOR + " and " + ClientConfig.MAX_FACTOR + "):",
+                "Invalid factor.", ClientConfig.MIN_FACTOR, ClientConfig.MAX_FACTOR)).floatValue();
     }
 
 }

@@ -60,8 +60,4 @@ public class CompanyNetProxy implements Company {
         return empl;
     }
 
-    public String save() {
-        return netClient.sendAndReceive("save", "");
-    }
-
 }
