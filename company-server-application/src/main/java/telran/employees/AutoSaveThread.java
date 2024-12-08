@@ -11,6 +11,7 @@ public class AutoSaveThread extends Thread {
         this.persistable = persistable;
         this.filePath = ServerConfig.DATA_FILE;
         this.saveInterval = ServerConfig.SAVE_INTERVAL;
+        setDaemon(true);
     }
 
     @Override

@@ -11,6 +11,7 @@ public class Main {
             persistable.restoreFromFile(ServerConfig.DATA_FILE);
             AutoSaveThread autoSaveThread = new AutoSaveThread(persistable);
             autoSaveThread.start();
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> persistable.saveToFile(ServerConfig.DATA_FILE)));
         }
         server.run();
     }
