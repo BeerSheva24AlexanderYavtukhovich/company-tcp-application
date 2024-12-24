@@ -26,9 +26,7 @@ public class CompanyItems {
             Item.of("Fire Employee", CompanyItems::fireEmployee),
             Item.of("Department Salary Budget", CompanyItems::subMenuDepBudget),
             Item.of("List of Departments", CompanyItems::displayListOfDepartments),
-            Item.of("Display Managers with Most Factor", CompanyItems::displayManagersWithMostFactor),
-            Item.of("Run DoS Test with Correct Requests", CompanyItems::runCorrectRequestsDosTest),
-            Item.of("Run DoS Test with Incorrect Requests", CompanyItems::runIncorrectRequestsDosTest)
+            Item.of("Display Managers with Most Factor", CompanyItems::displayManagersWithMostFactor)
     };
 
     public static Item[] getItems(Company company) {
@@ -78,17 +76,5 @@ public class CompanyItems {
     private static void displayManagersWithMostFactor(InputOutput io) {
         io.writeLine("\nList of managers with most factor:");
         Arrays.stream(company.getManagersWithMostFactor()).forEach(io::writeLine);
-    }
-
-    public static void runCorrectRequestsDosTest(InputOutput io) {
-        DosTestRequestClient correctClient = new DosTestRequestClient(ClientConfig.HOST, ClientConfig.PORT, io, "getDepartments", 15, 1);
-        new Thread(correctClient).start();
-        io.writeLine("Started DoS test with correct requests.");
-    }
-
-    public static void runIncorrectRequestsDosTest(InputOutput io) {
-        DosTestRequestClient incorrectClient = new DosTestRequestClient(ClientConfig.HOST, ClientConfig.PORT, io, "bad", 10, 100);
-        new Thread(incorrectClient).start();
-        io.writeLine("Started DoS test with incorrect requests.");
     }
 }
