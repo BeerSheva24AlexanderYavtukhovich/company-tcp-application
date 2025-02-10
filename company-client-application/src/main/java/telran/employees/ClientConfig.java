@@ -1,8 +1,8 @@
 package telran.employees;
 
 public final class ClientConfig {
-    final static String HOST = "54.88.179.59";
-    final static int PORT = 5011;
+    public final static String HOST = System.getProperty("host", "localhost");
+    final static int PORT = 3500;
     final static int MIN_BASIC_SALARY = 5000;
     final static int MAX_BASIC_SALARY = 30000;
     final static String[] DEPARTMENTS = { "QA", "Audit", "Development", "Management" };

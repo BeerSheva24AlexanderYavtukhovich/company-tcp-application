@@ -4,8 +4,8 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.Arrays;
 
+import telran.net.HttpCustomClient;
 import telran.net.NetworkClient;
-import telran.net.TcpClient;
 import telran.view.InputOutput;
 import telran.view.Item;
 import telran.view.Menu;
@@ -14,7 +14,7 @@ import telran.view.StandardInputOutput;
 public class Main {
     public static void main(String[] args) {
         InputOutput io = new StandardInputOutput();
-        NetworkClient netClient = new TcpClient(ClientConfig.HOST, ClientConfig.PORT);
+        NetworkClient netClient = new HttpCustomClient(ClientConfig.HOST, ClientConfig.PORT);
         Company company = new CompanyNetProxy(netClient);
         Item[] items = CompanyItems.getItems(company);
         items = addExitItem(items, netClient);
